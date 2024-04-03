@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Construction.Shared.Entidades
 {
-    public class Presupuesto
-
+    public class AsignacionMaterial
     {
         public int Id { get; set; }
 
+        public Material Materiales { get; set; }
 
-
+        public Tarea Tareas { get; set; }
     }
 }

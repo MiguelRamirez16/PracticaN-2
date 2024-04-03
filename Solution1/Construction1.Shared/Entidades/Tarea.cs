@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualBasic;
+﻿
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Construction.Shared.Entidades
@@ -35,5 +37,10 @@ namespace Construction.Shared.Entidades
         [Required(ErrorMessage = "The field {} is mandatory.")]
 
         public DateTime FechaAproxFinalizacion { get; set; }
+
+        [JsonIgnore]
+        public ICollection<AsignacionMaterial> AsignacionMateriales { get; set; } //Muchos a muchos
+
+        //public Maquinaria Maquinarias { get; set; }
     }
 }

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Construction.Shared.Entidades
 {
-    public class Materiales
+    public class Material
     {
 
         public int Id { get; set; }
@@ -16,7 +17,7 @@ namespace Construction.Shared.Entidades
         [MaxLength(50, ErrorMessage = "El Campo {0} No Permiten Mas de {1} digitos ")]
         [Required(ErrorMessage = "El Campo {0} el campo es obligatorio")]
 
-        public string Nombre { get; set; }  
+        public string Nombre { get; set; }
 
         public int Cantidad { get; set; }
 
@@ -27,8 +28,11 @@ namespace Construction.Shared.Entidades
 
         [DisplayFormat(DataFormatString = "{0:yyyy/mm/dd HH:mm}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "The field {} is mandatory.")]
-        public DateTime FechaEntregaAprox {  get; set; }
+        public DateTime FechaEntregaAprox { get; set; }
+        
+        //public ProyectoConstruccion ProyectoConstrucciones { get; set; }
 
-
+        [JsonIgnore]
+        public ICollection<AsignacionMaterial> AsignacionMateriales { get; set; } //Muchos a muchos
     }
 }

@@ -25,6 +25,8 @@ namespace Construction.Shared.Entidades
         [Display(Name = "Disponibilidad")]
         public bool Disponibilidad { get; set; }
 
+        //public ProyectoConstruccion ProyectoConstrucciones { get; set; } //NO ESTOY SEGURO, MIRAR MER
 
+        public Tarea Tareas { get; set; }
     }
 }
