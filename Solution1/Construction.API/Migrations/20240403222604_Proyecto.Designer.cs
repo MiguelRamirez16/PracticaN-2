@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Construction.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240403024309_Inicial")]
-    partial class Inicial
+    [Migration("20240403222604_Proyecto")]
+    partial class Proyecto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,6 +167,21 @@ namespace Construction.API.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("CostoManoObra")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoMaquinas")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoMateriales")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoProyecto")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoTarea")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

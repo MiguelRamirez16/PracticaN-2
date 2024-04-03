@@ -1,18 +1,17 @@
-﻿
+﻿using Construction.API.Data;
+using Construction.Shared.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Construction.API.Data;
-using Construction.Shared.Entidades;
 
-namespace Construction.API.Controladores
+namespace Construction.API.Controllers
 {
     [ApiController]
-    [Route("/api/ProyectoConstrucciones")]
-    public class ProyectoConstruccionesControladores: ControllerBase
+    [Route("/api/Presupuestos")]
+    public class PresupuestosControladores : ControllerBase
     {
         private readonly DataContext _context;
 
-        public ProyectoConstruccionesControladores(DataContext context)
+        public PresupuestosControladores(DataContext context)
         {
             _context = context;
 
@@ -21,44 +20,44 @@ namespace Construction.API.Controladores
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            return Ok(await _context.ProyectoConstrucciones.ToListAsync());
+            return Ok(await _context.Presupuestos.ToListAsync());
         }
 
-
         [HttpPost]
-        public async Task<ActionResult> Post(ProyectoConstruccion proyectoConstruccion)
+        public async Task<ActionResult> Post(Presupuesto presupuesto)
         {
-            _context.Add(proyectoConstruccion);
+            _context.Add(presupuesto);
             await _context.SaveChangesAsync();
-            return Ok(proyectoConstruccion);
+            return Ok(presupuesto);
         }
         //metodo get lista por id
         [HttpGet("id:int")]
         public async Task<ActionResult> Get(int id)
         {
 
-            var proyectoConstruccion = await _context.ProyectoConstrucciones.FirstOrDefaultAsync(x => x.Id == id);
-            if (proyectoConstruccion == null)
+            var presupuesto = await _context.Presupuestos.FirstOrDefaultAsync(x => x.Id == id);
+            if (presupuesto == null)
             {
                 return NotFound();
             }
 
-            return Ok(proyectoConstruccion);
+            return Ok(presupuesto);
 
         }//metodo update
+
         [HttpPut]
-        public async Task<ActionResult> Put(ProyectoConstruccion proyectoConstruccion)
+        public async Task<ActionResult> Put(Presupuesto presupuesto)
         {
-            _context.Update(proyectoConstruccion);
+            _context.Update(presupuesto);
             await _context.SaveChangesAsync();
-            return Ok(proyectoConstruccion);
+            return Ok(presupuesto);
         }
         //metodo delete
         [HttpDelete("id:int")]
         public async Task<ActionResult> Delete(int id)
         {
 
-            var filasAfectadas = await _context.ProyectoConstrucciones.
+            var filasAfectadas = await _context.Presupuestos.
                 Where(x => x.Id == id).ExecuteDeleteAsync();
             if (filasAfectadas == 0)
             {
@@ -67,6 +66,5 @@ namespace Construction.API.Controladores
             return NoContent();
 
         }
-
     }
 }

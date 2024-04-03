@@ -165,6 +165,21 @@ namespace Construction.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("CostoManoObra")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoMaquinas")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoMateriales")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoProyecto")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostoTarea")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.ToTable("Presupuestos");

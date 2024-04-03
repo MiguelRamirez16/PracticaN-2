@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Construction.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class Proyecto : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +47,12 @@ namespace Construction.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CostoManoObra = table.Column<double>(type: "float", nullable: false),
+                    CostoMateriales = table.Column<double>(type: "float", nullable: false),
+                    CostoMaquinas = table.Column<double>(type: "float", nullable: false),
+                    CostoProyecto = table.Column<double>(type: "float", nullable: false),
+                    CostoTarea = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
