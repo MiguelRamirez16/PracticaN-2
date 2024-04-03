@@ -30,5 +30,6 @@ namespace Construction.API.Data
         {
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }
