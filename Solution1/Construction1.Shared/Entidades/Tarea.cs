@@ -41,6 +41,6 @@ namespace Construction.Shared.Entidades
         [JsonIgnore]
         public ICollection<AsignacionMaterial> AsignacionMateriales { get; set; } //Muchos a muchos
 
-        //public Maquinaria Maquinarias { get; set; }
+        
     }
 }

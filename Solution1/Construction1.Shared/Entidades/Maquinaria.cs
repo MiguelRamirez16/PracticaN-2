@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Construction.Shared.Entidades
@@ -25,8 +26,7 @@ namespace Construction.Shared.Entidades
         [Display(Name = "Disponibilidad")]
         public bool Disponibilidad { get; set; }
 
-        //public ProyectoConstruccion ProyectoConstrucciones { get; set; } //NO ESTOY SEGURO, MIRAR MER
-
+        [JsonIgnore]
         public Tarea Tareas { get; set; }
     }
 }

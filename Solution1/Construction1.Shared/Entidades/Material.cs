@@ -29,8 +29,7 @@ namespace Construction.Shared.Entidades
         [DisplayFormat(DataFormatString = "{0:yyyy/mm/dd HH:mm}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "The field {} is mandatory.")]
         public DateTime FechaEntregaAprox { get; set; }
-        
-        //public ProyectoConstruccion ProyectoConstrucciones { get; set; }
+
 
         [JsonIgnore]
         public ICollection<AsignacionMaterial> AsignacionMateriales { get; set; } //Muchos a muchos

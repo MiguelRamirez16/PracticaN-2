@@ -40,12 +40,13 @@ namespace Construction.Shared.Entidades
 
         public DateTime FechaAproxFin { get; set; }
 
+        [JsonIgnore]
         public Presupuesto Presupuestos { get; set; }
-
+        [JsonIgnore]
         public Material Materiales { get; set; }
-
+        [JsonIgnore]
         public Tarea Tareas { get; set; }
-
+        [JsonIgnore]
         public Maquinaria Maquinarias { get; set; } //NO ESTOY SEGURO DE ESTE, MIRAR MER
 
         [JsonIgnore]
