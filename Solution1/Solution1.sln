@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Construction.API", "Constru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Construction.WEB", "Construction.WEB\Construction.WEB.csproj", "{0C807472-6659-4900-9927-AFBBB2F2D14F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construction.Shared", "Construction1.Shared\Construction.Shared.csproj", "{BE4A0179-6163-4F3F-B2B9-FBAF8F718C0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Construction.Shared", "Construction1.Shared\Construction.Shared.csproj", "{BE4A0179-6163-4F3F-B2B9-FBAF8F718C0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

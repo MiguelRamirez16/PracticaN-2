@@ -1,0 +1,71 @@
+﻿@using Construction.Shared.Entidades
+@using Construction.WEB.Repositories
+@using Construction.WEB.Shared
+
+
+<EditForm Model="ProyectoConstruccion" OnValidSubmit="OnValidSubmit" ReturnAction="Return">
+
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>Nombre:</label>
+        <div>
+            <InputText @bind-Value="ProyectoConstruccion.Nombre" />
+            <ValidationMessage For="@(()=>ProyectoConstruccion.Nombre)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Ubicacion:</label>
+        <div>
+            <InputText @bind-Value="ProyectoConstruccion.Ubicacion" />
+            <ValidationMessage For="@(()=>ProyectoConstruccion.Ubicacion)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Descripcion:</label>
+        <div>
+            <InputText @bind-Value="ProyectoConstruccion.Descripcion" />
+            <ValidationMessage For="@(()=>ProyectoConstruccion.Descripcion)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Fecha Inicio:</label>
+        <div>
+            <InputDate @bind-Value="ProyectoConstruccion.FechaInicio" />
+            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaInicio)" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Fecha De Finalizacion:</label>
+        <div>
+            <InputDate @bind-Value="ProyectoConstruccion.FechaAproxFin" />
+            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaAproxFin)" />
+        </div>
+    </div>
+
+
+    <button class="btn btn-primary" type="submit">Guardar</button>
+    <button class="btn btn-info" type="reset">Limpiar</button>
+    <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
+
+
+</EditForm>
+@code {
+    [EditorRequired]
+    [Parameter]
+    public ProyectoConstruccion ProyectoConstruccion { get; set; }
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback OnValidSubmit { get; set; }
+
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback ReturnAction { get; set; }
+
+
+    public bool FormPostedSuccessfully { get; set; }
+}

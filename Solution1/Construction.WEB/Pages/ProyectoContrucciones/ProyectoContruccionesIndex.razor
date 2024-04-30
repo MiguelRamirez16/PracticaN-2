@@ -1,0 +1,65 @@
+﻿@page "/proyectoContrucciones"
+@using Construction.Shared.Entidades
+@using Construction.WEB.Repositories
+@using Construction.WEB.Shared
+
+
+<h1>Proyecto Contrucciones</h1>
+
+@inject IRepository repository
+
+<div class="mb-3">
+    <a class="btn btn-primary" href="/ProyectoContruccion/create">Nuevo Proyecto</a>
+</div>
+
+
+<GenericList MyList="ProyectoContrucciones">
+
+    <Body>
+        <div class="align-items-center">
+        </div>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Proyecto Contruccione</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ProyectoConstruccion in ProyectoContrucciones!)
+                {
+                    <tr>
+                        <td> @ProyectoConstruccion.Nombre</td>
+                        <td>
+                            @ProyectoConstruccion.Ubicacion
+                        </td>
+                        <td>@ProyectoConstruccion.Descripcion</td>
+                        <td>@ProyectoConstruccion.FechaInicio</td>
+                        <td>@ProyectoConstruccion.FechaAproxFin</td>
+
+                        <td>
+                            <a class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger">Borrar</button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </Body>
+
+</GenericList>
+
+@code {
+    public List<ProyectoConstruccion>? ProyectoContrucciones { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var responseHppt = await repository.GetAsync<List<ProyectoConstruccion>>("/api/ProyectoConstrucciones");
+        ProyectoContrucciones = responseHppt.Response!;
+    }
+}
