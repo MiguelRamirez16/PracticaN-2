@@ -25,7 +25,7 @@ namespace Construction.API.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Post(ProyectoConstruccion proyectoConstruccion)
+        public async Task<ActionResult> PostAsync(ProyectoConstruccion proyectoConstruccion)
         {
             _context.Add(proyectoConstruccion);
             await _context.SaveChangesAsync();
@@ -33,7 +33,7 @@ namespace Construction.API.Controllers
         }
         //metodo get lista por id
         [HttpGet("id:int")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult> GetAsync(int id)
         {
 
             var proyectoConstruccion = await _context.ProyectoConstrucciones.FirstOrDefaultAsync(x => x.Id == id);

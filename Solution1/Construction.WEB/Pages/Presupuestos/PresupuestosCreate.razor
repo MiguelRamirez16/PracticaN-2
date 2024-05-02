@@ -1,25 +1,22 @@
-﻿@page "/ProyectoContruccion/create"
-
-@inject IRepository repository
+﻿@page "/presupuesto/create"
+@using Construction.WEB.Repositories
 @inject NavigationManager navigationManager
+@inject IRepository repository
 @inject SweetAlertService sweetAlertService
 
-<h3>ProyectoContruccionCreate</h3>
+<h3>PresupuestosCreate</h3>
 
-
-<ProyectoContruccionForn  ProyectoConstruccion="ProyectoConstruccion" OnValidSubmit="Create" ReturnAction="Return" />
-
-
+<PresupuestosForm presupuestos="presupuesto" OnValidSubmit="Create" ReturnAction="Return"/>
 
 @code {
-    private ProyectoConstruccion ProyectoConstruccion = new();
+    private Presupuesto presupuesto = new();
+    private PresupuestosForm presupuestosForm;
 
-    
     private async Task Create()
     {
 
 
-        var responseHttp = await repository.Post("/api/ProyectoConstrucciones", ProyectoConstruccion);
+        var responseHttp = await repository.PostAsync("/api/Presupuestos", presupuesto);
         if (responseHttp.Error)
         {
 
@@ -39,10 +36,6 @@
                 Position = SweetAlertPosition.BottomEnd,
                 ShowConfirmButton = true,
                 Timer = 3000
-
-
-
-
             });
 
 
@@ -54,11 +47,7 @@
     {
 
 
-
-        navigationManager.NavigateTo("/proyectoContrucciones");
-
-
-
-
+        // proyectoContruccionForn!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/presupuesto");
     }
 }

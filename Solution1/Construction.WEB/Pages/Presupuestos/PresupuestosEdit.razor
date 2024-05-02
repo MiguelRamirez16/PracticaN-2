@@ -1,0 +1,72 @@
+﻿@page "/presupuesto/edit/{Id:int}"
+
+@using System.Net
+@using Construction.WEB.Repositories
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+<h3>PresupuestosEdit</h3>
+
+@if (presupuesto is null)
+{
+    <p>Cargando......</p>
+}
+else
+{
+    <PresupuestosForm presupuestos="presupuesto" OnValidSubmit="Editar" ReturnAction="Return" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Presupuesto presupuesto = new();
+    private PresupuestosForm presupuestosForm;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var responseHttp = await repository.GetAsync<Presupuesto>($"api/Presupuestos/id:int?id={Id}");
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/presupuesto");
+            }
+            else
+            {
+                var messsage = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", messsage, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            presupuesto = responseHttp.Response;
+        }
+    }
+    private async Task Editar()
+    {
+        var responseHttp = await repository.PutAsync("/api/Presupuestos", presupuesto);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
+    }
+
+    private void Return()
+    {
+        // proyectoContruccionForn!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/presupuesto");
+    }
+}

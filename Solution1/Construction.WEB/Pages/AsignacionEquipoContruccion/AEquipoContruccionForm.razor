@@ -1,70 +1,43 @@
-﻿
-@inject SweetAlertService swal
+﻿@inject SweetAlertService swal
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-
-<EditForm Model="ProyectoConstruccion" OnValidSubmit="OnValidSubmit" ReturnAction="Return">
+<EditForm Model="asignacionEquipo" OnValidSubmit="OnValidSubmit" ReturnAction="Return">
 
     <DataAnnotationsValidator />
-    <div class="mb-3">
-        <label>Nombre:</label>
-        <div>
-            <InputText @bind-Value="ProyectoConstruccion.Nombre" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Nombre)" />
-        </div>
-    </div>
 
     <div class="mb-3">
-        <label>Ubicacion:</label>
+        <label>Id:Equipo Contruccion</label>
         <div>
-            <InputText @bind-Value="ProyectoConstruccion.Ubicacion" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Ubicacion)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Descripcion:</label>
-        <div>
-            <InputText @bind-Value="ProyectoConstruccion.Descripcion" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Descripcion)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Fecha Inicio:</label>
-        <div>
-            <InputDate @bind-Value="ProyectoConstruccion.FechaInicio" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaInicio)" />
+            <InputNumber @bind-Value="asignacionEquipo.IdEquiContruccion" />
+            <ValidationMessage For="@(()=>asignacionEquipo.IdEquiContruccion)" />
         </div>
     </div>
     <div class="mb-3">
-        <label>Fecha De Finalizacion:</label>
+        <label>Id:Proyecto Contruccion</label>
         <div>
-            <InputDate @bind-Value="ProyectoConstruccion.FechaAproxFin" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaAproxFin)" />
+            <InputNumber @bind-Value="asignacionEquipo.IdProyeContruccion" />
+            <ValidationMessage For="@(()=>asignacionEquipo.IdProyeContruccion)" />
         </div>
     </div>
-
 
     <button class="btn btn-primary" type="submit">Guardar</button>
     <button class="btn btn-info" type="reset">Limpiar</button>
     <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
 
-
 </EditForm>
-@code {
 
+@code {
     private EditContext editContext = null!;
     protected override void OnInitialized()
     {
-        editContext = new(ProyectoConstruccion);
+        editContext = new(asignacionEquipo);
     }
 
 
     [EditorRequired]
     [Parameter]
-    public ProyectoConstruccion ProyectoConstruccion { get; set; }
+    public AsignacionEquipo asignacionEquipo { get; set; }
 
     [EditorRequired]
     [Parameter]

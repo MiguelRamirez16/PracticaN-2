@@ -17,6 +17,7 @@ namespace Construction.Shared.Entidades
         [Required(ErrorMessage = "El Campo {0} el campo es obligatorio")]
 
         public string Nombre { get; set; }
+        [Required(ErrorMessage = "El campo {0} es requerido")]
         public int Cantidad { get; set; }
 
         [Display(Name = "Estado")]

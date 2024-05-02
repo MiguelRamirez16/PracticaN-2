@@ -1,70 +1,69 @@
-﻿
-@inject SweetAlertService swal
+﻿@inject SweetAlertService swal
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-
-<EditForm Model="ProyectoConstruccion" OnValidSubmit="OnValidSubmit" ReturnAction="Return">
+<EditForm Model="maquinarias" OnValidSubmit="OnValidSubmit" ReturnAction="Return">
 
     <DataAnnotationsValidator />
+
     <div class="mb-3">
         <label>Nombre:</label>
         <div>
-            <InputText @bind-Value="ProyectoConstruccion.Nombre" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Nombre)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Ubicacion:</label>
-        <div>
-            <InputText @bind-Value="ProyectoConstruccion.Ubicacion" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Ubicacion)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Descripcion:</label>
-        <div>
-            <InputText @bind-Value="ProyectoConstruccion.Descripcion" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Descripcion)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Fecha Inicio:</label>
-        <div>
-            <InputDate @bind-Value="ProyectoConstruccion.FechaInicio" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaInicio)" />
+            <InputText @bind-Value="maquinarias.Nombre" />
+            <ValidationMessage For="@(()=>maquinarias.Nombre)" />
         </div>
     </div>
     <div class="mb-3">
-        <label>Fecha De Finalizacion:</label>
+        <label>Cantidad Maquinas:</label>
         <div>
-            <InputDate @bind-Value="ProyectoConstruccion.FechaAproxFin" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaAproxFin)" />
+            <InputNumber @bind-Value="maquinarias.Cantidad" />
+            <ValidationMessage For="@(()=>maquinarias.Cantidad)" />
         </div>
     </div>
-
+    <div class="mb-3">
+        <label>Estado</label>
+        <div>
+            <ul>
+                <li>Selecciona la casilla si la Maquina esta buena</li>
+                <li>En caso contrario dejela vacia</li>
+            </ul>
+        </div>
+        <div>
+            <InputCheckbox @bind-Value="maquinarias.Estado" />
+            <ValidationMessage For="@(()=>maquinarias.Estado)" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Disponibilidad:</label>
+        <div>
+            <ul>
+                <li>Selecciona la casilla si la Maquina esta Disponible</li>
+                <li>En caso contrario dejela vacia</li>
+            </ul>
+        </div>
+        <div>
+            <InputCheckbox @bind-Value="maquinarias.Disponibilidad" />
+            <ValidationMessage For="@(()=>maquinarias.Disponibilidad)" />
+        </div>
+    </div>
 
     <button class="btn btn-primary" type="submit">Guardar</button>
     <button class="btn btn-info" type="reset">Limpiar</button>
     <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
 
-
 </EditForm>
-@code {
 
+@code {
     private EditContext editContext = null!;
     protected override void OnInitialized()
     {
-        editContext = new(ProyectoConstruccion);
+        editContext = new(maquinarias);
     }
 
 
     [EditorRequired]
     [Parameter]
-    public ProyectoConstruccion ProyectoConstruccion { get; set; }
+    public Maquinaria maquinarias{ get; set; }
 
     [EditorRequired]
     [Parameter]
@@ -77,8 +76,6 @@
 
 
     public bool FormularioPosteadoConExito { get; set; } = false;
-
-
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {

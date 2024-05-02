@@ -1,4 +1,4 @@
-﻿@page "/proyectoContrucciones"
+﻿@page "/equipoContruccion"
 @using Construction.Shared.Entidades
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
@@ -6,48 +6,41 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h1>Proyecto Contrucciones</h1>
+<h1>Equipo Contruccion</h1>
 
 <div class="card">
     <div class="card-header">
         <span>
-            
-            <a class="btn btn-primary btn-sm float-end" href="/ProyectoContruccion/create"> Nuevo Proyecto </a>
-
+            <a class ="btn btn-primary btn-sm float-end" href="/equipoContruccion/create"> Nuevo Equipo </a>
         </span>
     </div>
 
     <div class="card-body">
-        <GenericList MyList="ProyectoContrucciones">
+        <GenericList MyList="EquipoContrucciones">
             <Body>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Proyecto Contrucciones Listado</th>
+                            <th>Equipo De Contruccion Listado</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in ProyectoContrucciones)
+                        @foreach (var item in EquipoContrucciones)
                         {
                             <tr>
                                 <td>
-                                    <a href="/ProyectoContruccion/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
+                                    <a href="/equipoContruccion/edit/@item.Id" class="btn btn-sm btn-warning" > Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
                                 </td>
+
                                 <td>
                                     @item.Nombre
                                 </td>
                                 <td>
-                                    @item.Ubicacion
+                                    @item.Especialidades
                                 </td>
                                 <td>
-                                    @item.Descripcion
-                                </td>
-                                <td>
-                                    @item.FechaInicio
-                                </td>
-                                <td>
-                                    @item.FechaAproxFin
+                                    @item.ListaMiembros
                                 </td>
                             </tr>
                         }
@@ -56,11 +49,10 @@
             </Body>
         </GenericList>
     </div>
-    </div>
-
+</div>
 
 @code {
-    public List<ProyectoConstruccion> ProyectoContrucciones { get; set; }
+    public List<EquipoConstruccion> EquipoContrucciones { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -68,21 +60,21 @@
     }
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<ProyectoConstruccion>>("/api/ProyectoConstrucciones");
+        var responseHttp = await repository.GetAsync<List<EquipoConstruccion>>("/api/EquipoConstrucciones");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        ProyectoContrucciones = responseHttp.Response;
+        EquipoContrucciones = responseHttp.Response;
     }
-    private async Task DeleteAsync(ProyectoConstruccion proyectoConstruccion)
+    private async Task DeleteAsync(EquipoConstruccion equipoConstruccion)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {proyectoConstruccion.Nombre}?",
+                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {equipoConstruccion.Nombre}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -92,12 +84,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<ProyectoConstruccion>($"api/ProyectoConstrucciones/id:int?id={proyectoConstruccion.Id}");
+        var responseHttp = await repository.DeleteAsync<EquipoConstruccion>($"api/EquipoConstrucciones/id:int?id={equipoConstruccion.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("proyectoContrucciones");
+                navigationManager.NavigateTo("equipoContruccion");
             }
             else
             {
@@ -117,6 +109,4 @@
             });
         await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro borrado con éxito.");
     }
-
-
 }

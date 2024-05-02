@@ -12,19 +12,23 @@ namespace Construction.Shared.Entidades
     {
         public int Id { get; set; }
 
+        [DisplayFormat(DataFormatString ="{0:N2}")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public double CostoManoObra { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public double CostoMateriales { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public double CostoMaquinas { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
-
         public double CostoProyecto { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public double CostoTarea { get; set; }
 

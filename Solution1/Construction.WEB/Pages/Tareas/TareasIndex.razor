@@ -1,4 +1,5 @@
-﻿@page "/proyectoContrucciones"
+﻿@page "/tarea"
+
 @using Construction.Shared.Entidades
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
@@ -6,39 +7,37 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h1>Proyecto Contrucciones</h1>
+
+<h1>TareasIndex</h1>
 
 <div class="card">
     <div class="card-header">
         <span>
-            
-            <a class="btn btn-primary btn-sm float-end" href="/ProyectoContruccion/create"> Nuevo Proyecto </a>
+
+            <a class="btn btn-primary btn-sm float-end" href="/tarea/create"> Nuevo tarea </a>
 
         </span>
     </div>
 
     <div class="card-body">
-        <GenericList MyList="ProyectoContrucciones">
+        <GenericList MyList="tareas">
             <Body>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Proyecto Contrucciones Listado</th>
+                            <th>Listado de tareas</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in ProyectoContrucciones)
+                        @foreach (var item in tareas)
                         {
                             <tr>
                                 <td>
-                                    <a href="/ProyectoContruccion/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
+                                    <a href="/tarea/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
                                 </td>
                                 <td>
                                     @item.Nombre
-                                </td>
-                                <td>
-                                    @item.Ubicacion
                                 </td>
                                 <td>
                                     @item.Descripcion
@@ -47,20 +46,22 @@
                                     @item.FechaInicio
                                 </td>
                                 <td>
-                                    @item.FechaAproxFin
+                                    @item.FechaAproxFinalizacion
                                 </td>
+
                             </tr>
                         }
                     </tbody>
                 </table>
+
             </Body>
+
         </GenericList>
     </div>
-    </div>
-
+</div>
 
 @code {
-    public List<ProyectoConstruccion> ProyectoContrucciones { get; set; }
+    public List<Tarea> tareas { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -68,21 +69,21 @@
     }
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<ProyectoConstruccion>>("/api/ProyectoConstrucciones");
+        var responseHttp = await repository.GetAsync<List<Tarea>>("/api/Tareas");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        ProyectoContrucciones = responseHttp.Response;
+        tareas = responseHttp.Response;
     }
-    private async Task DeleteAsync(ProyectoConstruccion proyectoConstruccion)
+    private async Task DeleteAsync(Tarea tareas)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {proyectoConstruccion.Nombre}?",
+                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {tareas.Nombre}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -92,12 +93,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<ProyectoConstruccion>($"api/ProyectoConstrucciones/id:int?id={proyectoConstruccion.Id}");
+        var responseHttp = await repository.DeleteAsync<Tarea>($"api/Tareas/id:int?id={tareas.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("proyectoContrucciones");
+                navigationManager.NavigateTo("tarea");
             }
             else
             {
@@ -117,6 +118,4 @@
             });
         await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro borrado con éxito.");
     }
-
-
 }

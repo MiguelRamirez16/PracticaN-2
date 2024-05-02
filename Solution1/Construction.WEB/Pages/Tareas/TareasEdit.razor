@@ -1,0 +1,75 @@
+﻿@page "/tarea/edit/{Id:int}"
+
+@using System.Net
+@using Construction.WEB.Repositories
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+
+<h3>TareasEdit</h3>
+
+@if (tareas is null)
+{
+    <p>Cargando...</p>
+
+}
+else
+{
+    <TareasForm tareas="tareas" OnValidSubmit="Editar" ReturnAction="Return" />
+
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Tarea tareas = new();
+    private TareasForm tareasForm;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var responseHttp = await repository.GetAsync<Tarea>($"api/Tareas/id:int?id={Id}");
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/tarea");
+            }
+            else
+            {
+                var messsage = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", messsage, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            tareas = responseHttp.Response;
+        }
+    }
+    private async Task Editar()
+    {
+        var responseHttp = await repository.PutAsync("/api/Tareas", tareas);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
+    }
+
+    private void Return()
+    {
+        // proyectoContruccionForn!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/tarea");
+    }
+}

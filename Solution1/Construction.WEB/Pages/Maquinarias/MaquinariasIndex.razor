@@ -1,4 +1,5 @@
-﻿@page "/proyectoContrucciones"
+﻿@page "/maquinaria"
+
 @using Construction.Shared.Entidades
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
@@ -6,48 +7,45 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h1>Proyecto Contrucciones</h1>
 
+<h1>Maquinarias</h1>
 <div class="card">
     <div class="card-header">
         <span>
-            
-            <a class="btn btn-primary btn-sm float-end" href="/ProyectoContruccion/create"> Nuevo Proyecto </a>
+
+            <a class="btn btn-primary btn-sm float-end" href="/maquinaria/create"> Nuevo Maquinaria </a>
 
         </span>
     </div>
 
     <div class="card-body">
-        <GenericList MyList="ProyectoContrucciones">
+        <GenericList MyList="maquinarias">
             <Body>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Proyecto Contrucciones Listado</th>
+                            <th>Listado De Maquinarias</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in ProyectoContrucciones)
+                        @foreach (var item in maquinarias)
                         {
                             <tr>
                                 <td>
-                                    <a href="/ProyectoContruccion/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
+                                    <a href="/maquinaria/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
                                 </td>
                                 <td>
                                     @item.Nombre
                                 </td>
                                 <td>
-                                    @item.Ubicacion
+                                    @item.Cantidad
                                 </td>
                                 <td>
-                                    @item.Descripcion
+                                    @item.Estado
                                 </td>
                                 <td>
-                                    @item.FechaInicio
-                                </td>
-                                <td>
-                                    @item.FechaAproxFin
+                                    @item.Disponibilidad
                                 </td>
                             </tr>
                         }
@@ -56,11 +54,11 @@
             </Body>
         </GenericList>
     </div>
-    </div>
+</div>
 
 
 @code {
-    public List<ProyectoConstruccion> ProyectoContrucciones { get; set; }
+    public List<Maquinaria> maquinarias { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -68,21 +66,21 @@
     }
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<ProyectoConstruccion>>("/api/ProyectoConstrucciones");
+        var responseHttp = await repository.GetAsync<List<Maquinaria>>("/api/Maquinarias");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        ProyectoContrucciones = responseHttp.Response;
+        maquinarias = responseHttp.Response;
     }
-    private async Task DeleteAsync(ProyectoConstruccion proyectoConstruccion)
+    private async Task DeleteAsync(Maquinaria maquinarias)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {proyectoConstruccion.Nombre}?",
+                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {maquinarias.Nombre}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -92,12 +90,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<ProyectoConstruccion>($"api/ProyectoConstrucciones/id:int?id={proyectoConstruccion.Id}");
+        var responseHttp = await repository.DeleteAsync<Maquinaria>($"api/Maquinarias/id:int?id={maquinarias.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("proyectoContrucciones");
+                navigationManager.NavigateTo("maquinaria");
             }
             else
             {
@@ -117,6 +115,4 @@
             });
         await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro borrado con éxito.");
     }
-
-
 }

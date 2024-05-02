@@ -1,0 +1,111 @@
+﻿@page "/AsignacionEquipoContruccion"
+@using Construction.Shared.Entidades
+@using Construction.WEB.Repositories
+@using Construction.WEB.Shared
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+@inject NavigationManager navigationManager
+
+<h1>EquipoContruccion Con ProyectoContruccion</h1>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+
+            <a class="btn btn-primary btn-sm float-end" href="/AsignacionEquipoContruccion/create"> Nuevo Equipo a Proyecto </a>
+
+        </span>
+        <div class="card-body">
+            <GenericList MyList="asignacionEquipos">
+                <Body>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Listado Equipos A Proyectos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in asignacionEquipos)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="/AsignacionEquipoContruccion/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
+                                        <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
+                                    </td>
+                                    <td>
+                                        @item.IdEquiContruccion
+                                    </td>
+                                    <td>
+                                        @item.IdProyeContruccion
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </Body>
+            </GenericList>
+        </div>
+
+
+    </div>
+</div>
+
+@code {
+    public List<AsignacionEquipo>asignacionEquipos { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await LoadAsync();
+    }
+    private async Task LoadAsync()
+    {
+        var responseHttp = await repository.GetAsync<List<AsignacionEquipo>>("/api/AsignacionEquipos");
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+        asignacionEquipos = responseHttp.Response;
+    }
+    private async Task DeleteAsync(AsignacionEquipo asignacionEquipos)
+    {
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = $"¿Estas seguro de querer estos datos?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true,
+            });
+        var confirm = string.IsNullOrEmpty(result.Value);
+        if (confirm)
+        {
+            return;
+        }
+
+        var responseHttp = await repository.DeleteAsync<AsignacionEquipo>($"api/AsignacionEquipos/id:int?id={asignacionEquipos.Id}");
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("AsignacionEquipoContruccion");
+            }
+            else
+            {
+                var mensajeError = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+            }
+            return;
+        }
+
+        await LoadAsync();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro borrado con éxito.");
+    }
+}

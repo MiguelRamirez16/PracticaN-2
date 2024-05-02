@@ -1,50 +1,33 @@
-﻿
-@inject SweetAlertService swal
+﻿@inject SweetAlertService swal
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
 
-<EditForm Model="ProyectoConstruccion" OnValidSubmit="OnValidSubmit" ReturnAction="Return">
+<EditForm Model="equipoConstrucciones" OnValidSubmit="OnValidSubmit" ReturnAction="Return">
 
     <DataAnnotationsValidator />
     <div class="mb-3">
         <label>Nombre:</label>
         <div>
-            <InputText @bind-Value="ProyectoConstruccion.Nombre" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Nombre)" />
+            <InputText @bind-Value="equipoConstrucciones.Nombre" />
+            <ValidationMessage For="@(()=>equipoConstrucciones.Nombre)" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Especialidades:</label>
+        <div>
+            <InputText @bind-Value="equipoConstrucciones.Especialidades" />
+            <ValidationMessage For="@(()=>equipoConstrucciones.Especialidades)" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Lista De Miembros:</label>
+        <div>
+            <InputText @bind-Value="equipoConstrucciones.ListaMiembros" />
+            <ValidationMessage For="@(()=>equipoConstrucciones.ListaMiembros)" />
         </div>
     </div>
 
-    <div class="mb-3">
-        <label>Ubicacion:</label>
-        <div>
-            <InputText @bind-Value="ProyectoConstruccion.Ubicacion" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Ubicacion)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Descripcion:</label>
-        <div>
-            <InputText @bind-Value="ProyectoConstruccion.Descripcion" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.Descripcion)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Fecha Inicio:</label>
-        <div>
-            <InputDate @bind-Value="ProyectoConstruccion.FechaInicio" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaInicio)" />
-        </div>
-    </div>
-    <div class="mb-3">
-        <label>Fecha De Finalizacion:</label>
-        <div>
-            <InputDate @bind-Value="ProyectoConstruccion.FechaAproxFin" />
-            <ValidationMessage For="@(()=>ProyectoConstruccion.FechaAproxFin)" />
-        </div>
-    </div>
 
 
     <button class="btn btn-primary" type="submit">Guardar</button>
@@ -53,18 +36,18 @@
 
 
 </EditForm>
+
 @code {
 
-    private EditContext editContext = null!;
-    protected override void OnInitialized()
-    {
-        editContext = new(ProyectoConstruccion);
-    }
-
+        private EditContext editContext = null!;
+        protected override void OnInitialized()
+        {
+        editContext = new(equipoConstrucciones);
+        }
 
     [EditorRequired]
     [Parameter]
-    public ProyectoConstruccion ProyectoConstruccion { get; set; }
+    public EquipoConstruccion equipoConstrucciones { get; set; }
 
     [EditorRequired]
     [Parameter]
@@ -77,8 +60,6 @@
 
 
     public bool FormularioPosteadoConExito { get; set; } = false;
-
-
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
