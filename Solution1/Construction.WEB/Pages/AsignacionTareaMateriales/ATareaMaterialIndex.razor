@@ -6,13 +6,13 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h3>Asignacion Tarea a Material</h3>
+<h1>Tareas Con Materiales</h1>
 
 <div class="card">
     <div class="card-header">
         <span>
             
-            <a class="btn btn-primary btn-sm float-end" href="/AsignacionTareaMateriales/create"> Nueva Tarea a Materiales </a>
+            <a class="btn btn-primary btn-sm float-end" href="/AsignacionTareaMateriales/create"> Nueva Tarea Con Materiales </a>
 
         </span>
 
@@ -21,7 +21,15 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Proyecto Contrucciones Listado</th>
+                            <th>Listado Tareas A Materiales</th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th> Id Principal</th>
+                            <th>Id: Materiales:</th>
+                            <th>Id: Tareas:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,6 +39,9 @@
                                 <td>
                                     <a href="/AsignacionTareaMateriales/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
+                                </td>
+                                <td>
+                                    @item.Id
                                 </td>
                                 <td>
                                     @item.IdTarea
@@ -70,7 +81,7 @@
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar?",
+                Text = $"¿Estas seguro de querer estos borrar?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });

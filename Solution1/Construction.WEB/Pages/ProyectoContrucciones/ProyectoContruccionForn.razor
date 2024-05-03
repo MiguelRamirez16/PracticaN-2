@@ -8,7 +8,7 @@
 
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>Nombre:</label>
+        <label>Nombre del Proyecto:</label>
         <div>
             <InputText @bind-Value="ProyectoConstruccion.Nombre" />
             <ValidationMessage For="@(()=>ProyectoConstruccion.Nombre)" />
@@ -16,7 +16,7 @@
     </div>
 
     <div class="mb-3">
-        <label>Ubicacion:</label>
+        <label>Ubicacion del Proyecto:</label>
         <div>
             <InputText @bind-Value="ProyectoConstruccion.Ubicacion" />
             <ValidationMessage For="@(()=>ProyectoConstruccion.Ubicacion)" />
@@ -24,7 +24,7 @@
     </div>
 
     <div class="mb-3">
-        <label>Descripcion:</label>
+        <label>Descripcion del Proyecto:</label>
         <div>
             <InputText @bind-Value="ProyectoConstruccion.Descripcion" />
             <ValidationMessage For="@(()=>ProyectoConstruccion.Descripcion)" />
@@ -32,14 +32,14 @@
     </div>
 
     <div class="mb-3">
-        <label>Fecha Inicio:</label>
+        <label>Fecha Inicio del Proyecto:</label>
         <div>
             <InputDate @bind-Value="ProyectoConstruccion.FechaInicio" />
             <ValidationMessage For="@(()=>ProyectoConstruccion.FechaInicio)" />
         </div>
     </div>
     <div class="mb-3">
-        <label>Fecha De Finalizacion:</label>
+        <label>Fecha De Finalizacion del Proyecto :</label>
         <div>
             <InputDate @bind-Value="ProyectoConstruccion.FechaAproxFin" />
             <ValidationMessage For="@(()=>ProyectoConstruccion.FechaAproxFin)" />

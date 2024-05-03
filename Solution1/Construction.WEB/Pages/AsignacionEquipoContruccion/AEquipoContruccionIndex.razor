@@ -12,7 +12,7 @@
     <div class="card-header">
         <span>
 
-            <a class="btn btn-primary btn-sm float-end" href="/AsignacionEquipoContruccion/create"> Nuevo Equipo a Proyecto </a>
+            <a class="btn btn-primary btn-sm float-end" href="/AsignacionEquipoContruccion/create"> Nuevo Equipo A Proyecto </a>
 
         </span>
         <div class="card-body">
@@ -24,6 +24,15 @@
                                 <th>Listado Equipos A Proyectos</th>
                             </tr>
                         </thead>
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th> Id Principal</th>
+                                <th>Id:Equipo Contruccion</th>
+                                <th>Id:Proyecto Contruccion</th>
+
+                            </tr>
+                        </thead>
                         <tbody>
                             @foreach (var item in asignacionEquipos)
                             {
@@ -31,6 +40,9 @@
                                     <td>
                                         <a href="/AsignacionEquipoContruccion/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
                                         <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
+                                    </td>
+                                    <td>
+                                        @item.Id
                                     </td>
                                     <td>
                                         @item.IdEquiContruccion

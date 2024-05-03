@@ -28,6 +28,17 @@
                             <th>Listado de tareas</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th> Id </th>
+                            <th>Nombre de la Tarea</th>
+                            <th>Descripcion de la Tarea</th>
+                            <th>Fecha Inicio Tarea</th> 
+                            <th>Fecha Entrega </th>
+
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach (var item in tareas)
                         {
@@ -35,6 +46,9 @@
                                 <td>
                                     <a href="/tarea/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
+                                </td>
+                                <td>
+                                    @item.Id
                                 </td>
                                 <td>
                                     @item.Nombre
@@ -83,7 +97,7 @@
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {tareas.Nombre}?",
+                Text = $"¿Estas seguro de querer borrar La tarea: {tareas.Nombre}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });

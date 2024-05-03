@@ -6,7 +6,7 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h1>Proyecto Contrucciones</h1>
+<h1>Proyecto Construcciones</h1>
 
 <div class="card">
     <div class="card-header">
@@ -23,7 +23,19 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Proyecto Contrucciones Listado</th>
+                            <th>Listado Proyecto Construcciones </th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th> Id </th>
+                            <th>Nombre Proyecto</th>
+                            <th>Ubicacion del Proyecto</th>
+                            <th>Descripcion del Proyecto</th>
+                            <th>Fecha De Inicio del Proyecto</th>
+                            <th>Fecha De Finalizacion del Proyecto</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -31,8 +43,11 @@
                         {
                             <tr>
                                 <td>
-                                    <a href="/ProyectoContruccion/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
+                                    <a href="/ProyectoContruccion/edit/@item.Id" class="btn btn-sm btn-warning" > Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
+                                </td>
+                                <td>
+                                    @item.Id
                                 </td>
                                 <td>
                                     @item.Nombre

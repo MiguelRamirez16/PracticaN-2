@@ -27,6 +27,16 @@
                             <th>Listado De Maquinarias</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th> Id </th>
+                            <th>Nombre Maquinaria</th>
+                            <th>Cantidad Maquinas</th>
+                            <th>Estado</th>
+                            <th>Disponibilidad</th
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach (var item in maquinarias)
                         {
@@ -34,6 +44,9 @@
                                 <td>
                                     <a href="/maquinaria/edit/@item.Id" class="btn btn-sm btn-warning"> Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
+                                </td>
+                                <td>
+                                    @item.Id
                                 </td>
                                 <td>
                                     @item.Nombre
@@ -80,7 +93,7 @@
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {maquinarias.Nombre}?",
+                Text = $"¿Estas seguro de querer borrar La Maquina: {maquinarias.Nombre}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });

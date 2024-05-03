@@ -7,28 +7,28 @@
     <DataAnnotationsValidator/>
 
     <div class="mb-3">
-        <label>Nombre:</label>
+        <label>Nombre de la Tarea:</label>
         <div>
             <InputText @bind-Value="tareas.Nombre" />
             <ValidationMessage For="@(()=>tareas.Nombre)" />
         </div>
     </div>
     <div class="mb-3">
-        <label>Descripcion:</label>
+        <label>Descripcion de la Tarea:</label>
         <div>
             <InputText @bind-Value="tareas.Descripcion" />
             <ValidationMessage For="@(()=>tareas.Descripcion)" />
         </div>
     </div>
     <div class="mb-3">
-        <label>Fecha Inicio de la tarea:</label>
+        <label>Fecha Inicio Tarea:</label>
         <div>
             <InputDate @bind-Value="tareas.FechaInicio" />
             <ValidationMessage For="@(()=>tareas.FechaInicio)" />
         </div>
     </div>
     <div class="mb-3">
-        <label>Plazo Maximo Para Completarla</label>
+        <label>Fecha Entrega</label>
         <div>
             <InputDate @bind-Value="tareas.FechaAproxFinalizacion" />
             <ValidationMessage For="@(()=>tareas.FechaAproxFinalizacion)" />

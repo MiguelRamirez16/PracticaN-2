@@ -6,7 +6,7 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h1>Equipo Contruccion</h1>
+<h1>Equipos Construcciones</h1>
 
 <div class="card">
     <div class="card-header">
@@ -21,7 +21,16 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Equipo De Contruccion Listado</th>
+                            <th>Listado Equipo De Construccion </th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th> Id </th>
+                            <th>Nombre Equipo</th>
+                            <th>Especialidades</th>
+                            <th>Lista de Miembros</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +41,9 @@
                                     <a href="/equipoContruccion/edit/@item.Id" class="btn btn-sm btn-warning" > Editar </a>
                                     <button @onclick=@(() => DeleteAsync(item)) class="btn btn-sm btn-danger"> Borrar </button>
                                 </td>
-
+                                <td>
+                                    @item.Id
+                                </td>
                                 <td>
                                     @item.Nombre
                                 </td>
@@ -74,7 +85,7 @@
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el proyecto contruccion: {equipoConstruccion.Nombre}?",
+                Text = $"¿Estas seguro de querer borrar el Equipo De construccion: {equipoConstruccion.Nombre}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
